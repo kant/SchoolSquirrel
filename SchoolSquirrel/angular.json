@@ -2,50 +2,38 @@
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
     "newProjectRoot": "projects",
-    "cli": {
-        "defaultCollection": "@nativescript/schematics"
-    },
     "projects": {
-        "SchoolSquirrel": {
-            "root": "",
-            "sourceRoot": "src",
+        "schoolsquirrel": {
             "projectType": "application",
-            "prefix": "app",
             "schematics": {
-                "@nativescript/schematics:component": {
-                    "styleext": "scss"
+                "@schematics/angular:component": {
+                    "style": "scss"
                 }
             },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "aot": true,
-                        "outputPath": "dist/SchoolSquirrel",
+                        "outputPath": "dist/schoolsquirrel",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
+                        "aot": true,
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets",
-                            { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" },
-                            { "glob": "**/*", "input": "node_modules/tinymce-i18n/langs5", "output": "/tinymce/langs" },
-                            { "glob": "**/*", "input": "node_modules/ngx-extended-pdf-viewer/assets/", "output": "/assets/" }
+                            "src/assets"
                         ],
                         "styles": [
-                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/styles.scss",
-                            "node_modules/tinymce/tinymce.min.js"
+                            "src/styles.scss"
                         ],
                         "scripts": []
                     },
                     "configurations": {
                         "production": {
-                            "budgets": [{
-                                "type": "anyComponentStyle",
-                                "maximumWarning": "6kb"
-                            }],
                             "fileReplacements": [{
                                 "replace": "src/environments/environment.ts",
                                 "with": "src/environments/environment.prod.ts"
@@ -55,89 +43,39 @@
                             "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true
+                            "buildOptimizer": true,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
                         }
                     }
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "SchoolSquirrel:build"
+                        "browserTarget": "schoolsquirrel:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "SchoolSquirrel:build:production"
+                            "browserTarget": "schoolsquirrel:build:production"
                         }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "SchoolSquirrel:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.spec.json",
-                        "karmaConfig": "karma.conf.js",
-                        "styles": [
-                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/styles.scss"
-                        ],
-                        "scripts": [],
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ]
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "tsconfig.app.json",
-                            "tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
-        },
-        "SchoolSquirrel-e2e": {
-            "root": "e2e/",
-            "projectType": "application",
-            "architect": {
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "SchoolSquirrel:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "SchoolSquirrel:serve:production"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": "e2e/tsconfig.e2e.json",
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
                     }
                 }
             }
         }
     },
-    "defaultProject": "SchoolSquirrel"
+    "defaultProject": "schoolsquirrel",
+    "cli": {
+        "defaultCollection": "@nativescript/schematics"
+    }
 }
