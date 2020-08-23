@@ -2,7 +2,9 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Course } from "../../_models/Course";
 import { RemoteService } from "../../_services/remote.service";
 import { Assignment } from "../../_models/Assignment";
+import { Component } from '@angular/core';
 
+@Component({template: ""})
 export class AssignmentsComponentCommon {
     public newAssignmentId: number;
     public courses: Course[] = [];
